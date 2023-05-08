@@ -8,7 +8,7 @@ for i in range(0,2):
     randInt.append(generate_randint)
 
 a_MetaData = data[randInt[0]]
-b_MetaData
+b_MetaData =
 
 
 a_Initial = "Compare A: " + a_MetaData['name'] + ", a " + a_MetaData['description'] + ", from " + a_MetaData['country'] + "."
