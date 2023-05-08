@@ -1,21 +1,52 @@
-# Declare 2 variables set and assign random values from game_data dict
 from game_data import data
-from random import randint
+import random
+from art import logo, vs
+from os import system
+# from replit import clear
 
-randInt = []
-for i in range(0,2):
-    generate_randint = randint(0, len(data))
-    randInt.append(generate_randint)
+def get_random_data():
+    return random.choice(data)
 
-a_MetaData = data[randInt[0]]
-b_MetaData = 
+def formatting_data(choice):
+    name = choice['name']
+    description = choice['description']
+    country = choice['country']
+    return f"{name}, a {description}, from {country}"
 
+def compare(user_guess, a_followers, b_followers):
+    if a_followers > b_followers:
+        return user_guess == "a"
+    else:
+        return user_guess == "b"
 
-a_Initial = "Compare A: " + a_MetaData['name'] + ", a " + a_MetaData['description'] + ", from " + a_MetaData['country'] + "."
+def game():
+    should_continue = True
+    score = 0
+    a_choice = get_random_data()
+    b_choice = get_random_data()
 
-print(a_Initial)
-# ask user to input there guess
-# Compare between two variables
-# correct answer will lead to increase in score point by 1
-# assign the correct choosen value to the first one and take random second value for next comparison
-# wrong ans will end the game
+    while should_continue:
+        a_choice = b_choice
+        b_choice = get_random_data()
+
+        while a_choice == b_choice:
+            b_choice = get_random_data()
+
+        print(f"Compare A: {formatting_data(a_choice)}")
+        print(vs)
+        print(f"Compare B: {formatting_data(b_choice)}")
+
+        user_guess = input("Who has more followers? Type 'A' or 'B': ").lower()
+        correct_ans = compare(user_guess, a_followers=a_choice['follower_count'], b_followers=b_choice['follower_count'])
+
+        system('cls')
+        # clear()
+        print(logo)
+        if correct_ans:
+            score += 1
+            print(f"You're right! Current score: {score}.")
+        else:
+            should_continue = False
+            print(f"Sorry, that's wrong. Final Score: {score}.")
+
+game()
